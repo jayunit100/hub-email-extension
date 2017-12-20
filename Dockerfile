@@ -18,10 +18,10 @@ ADD "build/distributions/hub-email-extension-$VERSION.tar" /blackduck-extensions
 
 # Override the default logger settings to match other Hub containers
 
-RUN mkdir -p /blackduck-extensions-config-defaults
+RUN mkdir -m 775 -p /blackduck-extensions-config-defaults
+RUN mkdir -m 775 -p /blackduck-extensions-config-volume/
 
-# Note that this data is ephemeral, you should overwrite a volume to this location for persistent, distributed, emailext deployments.
-RUN mkdir -p /blackduck-extensions-config-volume/ -m 775
+VOLUME [ "/blackduck-extensions-config-volume/" ]
 
 # The app itself will read in from the -volume directory at runtime.  We write these to an
 # easily accessible location that the entrypoint can always find and copy data from.
